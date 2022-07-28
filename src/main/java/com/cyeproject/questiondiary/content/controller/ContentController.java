@@ -1,5 +1,8 @@
 package com.cyeproject.questiondiary.content.controller;
 
+import com.cyeproject.questiondiary.content.entity.Content;
+import com.cyeproject.questiondiary.content.mapper.ContentMapper;
+import com.cyeproject.questiondiary.content.service.ContentService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -9,8 +12,15 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/diary/content") //URL 정하기. 핸들러 메서드를 매핑해줍니다.
 public class ContentController {
 
+    private final ContentService contentservice;
+    private final ContentMapper mapper;
+
     //생성자
     // : mapper클래스(데이터 타입 변경 목적)와 service클래스(비즈니스 로직 처리 목적)의 객체를 DI 받아요
+    public ContentController(ContentService contentService, ContentMapper mapper){
+        this.contentservice = contentService;
+        this.mapper = mapper;
+    }
 
     //**아직 DTO랑 Mapper를 구현하지 않아서 매개변수는 고따구로 밖에 못했음!
     //1. 글 작성 - post

@@ -1,5 +1,9 @@
 package com.cyeproject.questiondiary.content.dto;
 
+import com.cyeproject.questiondiary.question.entity.Question;
+
+import java.util.List;
+
 public class ContentResponseDto {
     /*
     1. 날짜
@@ -8,4 +12,8 @@ public class ContentResponseDto {
     3. 기분 값
     4. 오늘의 문장
     */
+    private String created_date;
+    private List<Question> qnas;
+    private int feeling;
+    private String today_sentence;
 }

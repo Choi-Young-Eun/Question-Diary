@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/Question-Diary?useSSL=false&useUnicode=true&serverTimezone=Asia/Seoul
+    url: jdbc:mysql://localhost:3306/Question-Diary?useSSL=false&allowPublicKeyRetrieval=true&useUnicode=true&serverTimezone=Asia/Seoul
     username: root
     password: zoominout100!
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -11,3 +11,4 @@ spring:
     properties:
       hibernate:
         format_sql: true
+    database: mysql

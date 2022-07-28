@@ -1,5 +1,9 @@
 package com.cyeproject.questiondiary.content.dto;
 
+import com.cyeproject.questiondiary.question.entity.Question;
+
+import java.util.List;
+
 public class ContentPostDto {
     /*
     1. 글쓴이 ID - String : 필수
@@ -10,4 +14,8 @@ public class ContentPostDto {
     -> 1-5까지나 10까지로 하기! 그 외의 값이 오면 안됨
     4. 오늘의 문장 - String : 필수
     */
+    private String writer;
+    private List<Question> qnas;
+    private int feeling;
+    private String today_sentence;
 }
