@@ -1,9 +1,11 @@
 package com.cyeproject.questiondiary.content.dto;
 
-import com.cyeproject.questiondiary.question.entity.Question;
+import com.cyeproject.questiondiary.content.entity.Answer;
+import lombok.Getter;
 
 import java.util.List;
 
+@Getter
 public class ContentPostDto {
     /*
     1. 글쓴이 ID - String : 필수
@@ -15,7 +17,7 @@ public class ContentPostDto {
     4. 오늘의 문장 - String : 필수
     */
     private String writer;
-    private List<Question> qnas;
-    private int feeling;
-    private String today_sentence;
+    private List<AnswerPostDto> answers;
+    private Long feeling;
+    private String todaySentence;
 }

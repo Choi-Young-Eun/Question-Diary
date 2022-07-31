@@ -1,6 +1,6 @@
 package com.cyeproject.questiondiary.content.dto;
 
-import com.cyeproject.questiondiary.question.entity.Question;
+import com.cyeproject.questiondiary.content.entity.Answer;
 
 import java.util.List;
 
@@ -14,9 +14,9 @@ public class ContentPatchDto {
     4. 기분 값 - 숫자
     5. 오늘의 문장 - String
     */
-    private long content_id;
+    private Long content_id;
     private String writer;
-    private List<Question> qnas;
-    private int feeling;
+    private List<Answer> qnas;
+    private Long feeling;
     private String today_sentence;
 }
