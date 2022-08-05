@@ -33,7 +33,9 @@ public class Content {
 //    private Long contentId;
     @Id
     private String contentDate;
-    private String writer;
+   // @ManyToOne //이거 제대로 설정하기
+   // @JoinColumn(name = "member_id")
+   // private String writer; //외래키
     //컬럼으로 생성 안함) - 연결하기 매핑!
     @OneToMany(mappedBy = "content")
     private List<Answer> qnas;

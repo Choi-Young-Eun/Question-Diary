@@ -14,8 +14,8 @@ public class ContentResponseDto {
     3. 기분 값
     4. 오늘의 문장
     */
-    private String created_date;
-    private List<Answer> qnas;
+    private String contentDate;
+    private List<AnswerResponseDto> qnas;
     private Long feeling;
-    private String today_sentence;
+    private String todaySentence;
 }

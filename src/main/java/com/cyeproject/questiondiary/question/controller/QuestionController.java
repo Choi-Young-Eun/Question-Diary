@@ -23,8 +23,8 @@ public class QuestionController {
     //*************************** 여긴 아직 DTO 시작도 안함!
     //C
     @PostMapping
-    public ResponseEntity postQuestion(@RequestParam("question_content") String content){
-        //Service를 통해 저장해요
+    public ResponseEntity postQuestion(@RequestBody Question question){
+        questionService.createQuestion(question);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
     //R1 - All
@@ -41,13 +41,15 @@ public class QuestionController {
     }
     //U
     @PatchMapping("/{question-id}")
-    public ResponseEntity patchQuestion(){
+    public ResponseEntity patchQuestion(@PathVariable("question-id") Long questionId, @RequestParam("question-content") String questionContent){
         //수정 버튼을 누르고
+        questionService.updateQuestion(questionId,questionContent);
         return new ResponseEntity<>(HttpStatus.OK);
     }
     //D
-    public ResponseEntity deleteQuestion(Long questionId){
-
+    @DeleteMapping("/{question-id}")
+    public ResponseEntity deleteQuestion(@PathVariable("question-id") Long questionId){
+        questionService.deleteQuestion(questionId);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }

@@ -16,7 +16,7 @@ import java.io.Serializable;
 @Entity
 @IdClass(AnswerID.class)
 @Table(name = "answer")
-public class Answer implements Serializable {
+public class Answer{
     /*
     1. 글 ID : Long (기,외) - 필수
     2. 질문 ID : Long (기,외) - 필수
@@ -33,5 +33,6 @@ public class Answer implements Serializable {
     @JoinColumn(name = "question_id")
     private Question question;
 
+    @Column(name="answer_content")
     private String answer;
 }

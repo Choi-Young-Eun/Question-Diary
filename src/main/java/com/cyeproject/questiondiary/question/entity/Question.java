@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
@@ -19,6 +20,8 @@ public class Question {
     2. 질문 내용 : question_content
     */
     @Id
-    private Long question_id;
-    private String question_content;
+    @Column(name="question_id")
+    private Long questionId;
+    @Column(name="question_content")
+    private String questionContent;
 }

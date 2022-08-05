@@ -40,23 +40,30 @@ public class ContentService {
         return result;
     }
 
-    //***************** 아직 수정안함!
-    public Content updateContent(Content content){
+    public Content updateContent(Content content,String contentDate){
+        content.setContentDate(contentDate);
+        verifyExistsContentDate(contentDate); //그 날짜에 맞는 다이어리가 있는지
+        //있다고 치고!
+        List<Answer> updatedAnswers=answerService.updateAnswer(content.getQnas());
+        content.setQnas(updatedAnswers);
         //DB에 접근해서 수정한 값을 저장하고 되받아오기!
         //-> 채워진 값들만 수정할 수 있도록 그리고 그 수정 후의 값을 반환!
-        return null;
+        return contentRepository.save(content);
     }
 
     public Content findContent(String contentDate){
         //id 값을 이용해서 DB에서 다이어리글을 가져와서 반환!
         verifyExistsContentDate(contentDate);
-        return contentRepository.findById(contentDate).get();
+        Content content = contentRepository.findById(contentDate).get();
+        content.setQnas(answerService.findAnswer(contentDate));
         //존재하는지 확인하는 메서드 만들면 위에 두줄 지우고 그걸로 대체하기!
+        return content;
     }
 
     public void deleteContent(String contentDate){
         //id 값을 이용해서 DB에서 상태를 변경하고 오기(ex. 작성완료에서 삭제로)
         verifyExistsContentDate(contentDate); //예외처리할 때 수정하기 - 존재하는지 확인하고 있으면 객체를 반환하는 메서드를 사용하기
+        answerService.deleteAnswer(contentDate);
         contentRepository.deleteById(contentDate); //예외처리 되면 deleteById가 아니라 위에서 결과로 받은 객체 사용해서 delete메서드 사용하기
     }
 

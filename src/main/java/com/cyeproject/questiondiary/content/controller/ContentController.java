@@ -1,5 +1,6 @@
 package com.cyeproject.questiondiary.content.controller;
 
+import com.cyeproject.questiondiary.content.dto.ContentPatchDto;
 import com.cyeproject.questiondiary.content.dto.ContentPostDto;
 import com.cyeproject.questiondiary.content.entity.Content;
 import com.cyeproject.questiondiary.content.mapper.ContentMapper;
@@ -39,25 +40,28 @@ public class ContentController {
     }
 
     //2. 글 수정 - patch (아직 안함)
-    @PatchMapping("/{content-number}")
-    public ResponseEntity patchContent(@PathVariable("content-number") long contentNumber, @RequestParam("memberId") long memberId){
+    @PatchMapping("/{content-date}")
+    public ResponseEntity patchContent(@PathVariable("content-date") String contentDate, @RequestBody ContentPatchDto contentPatchDto){
         //매개변수로 요청에 담긴 수정할 정보를 DTO 클래스 객체에 담음
         //DTO 객체를 Entity 객체로 변경
+        Content content = mapper.contentPatchDtoToContent(contentPatchDto);
         //Service Layer 호출 : Entity 객체도 같이 넘겨주기!
+        Content result=contentservice.updateContent(content,contentDate);
         //받은 결과 객체(다이어리 글이겠지?)를 DTO 클래스 객체로 변경
         //DTO 클래스 객체를 포함한 응답 객체 구성해서 return!
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(mapper.contentToContentResponseDto(result),HttpStatus.OK);
     }
 
     //3. 글 조회 (하나만) - get
     @GetMapping("/{content-date}")
     public ResponseEntity getContent(@PathVariable("content-date") String contentDate){
         //Service Layer 호출
-        //받은 객체 DTO로 바꿈
-        return new ResponseEntity<>(HttpStatus.OK);
+        Content content = contentservice.findContent(contentDate);
+        //받은 객체 DTO로 바꿈 - 아직 안됨. 수정해야됨
+        return new ResponseEntity<>(mapper.contentToContentResponseDto(content),HttpStatus.OK);
     }
 
-    //4. 글 삭제 - delete
+    //4. 글 삭제 - delete (근데 아직 answer지우는 건 처리 못함)
     @DeleteMapping("/{content-date}")
     public ResponseEntity deleteContent(@PathVariable("content-date") String contentDate) {
         //Service Layer 호출

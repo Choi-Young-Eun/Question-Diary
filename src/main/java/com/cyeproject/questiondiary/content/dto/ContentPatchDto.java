@@ -1,7 +1,5 @@
 package com.cyeproject.questiondiary.content.dto;
 
-import com.cyeproject.questiondiary.content.entity.Answer;
-
 import java.util.List;
 
 public class ContentPatchDto {
@@ -14,9 +12,8 @@ public class ContentPatchDto {
     4. 기분 값 - 숫자
     5. 오늘의 문장 - String
     */
-    private Long content_id;
     private String writer;
-    private List<Answer> qnas;
+    private List<AnswerRequestDto> qnas;
     private Long feeling;
-    private String today_sentence;
+    private String todaySentence;
 }

@@ -1,5 +1,6 @@
 package com.cyeproject.questiondiary.content.mapper;
 
+import com.cyeproject.questiondiary.content.dto.AnswerResponseDto;
 import com.cyeproject.questiondiary.content.dto.ContentPatchDto;
 import com.cyeproject.questiondiary.content.dto.ContentPostDto;
 import com.cyeproject.questiondiary.content.dto.ContentResponseDto;
@@ -29,13 +30,11 @@ public interface ContentMapper {
     //-> 요청에서 주어지는 데이터를 DTO 클래스 객체로 받아서 요청을 처리하기 위해 엔티티 클래스 객체로 변경
     //ex. Content contentPostDtoContent(ContentPostDto contentPostDto);
     // - Post 요청을 받았을 때 같이 오는 데이터를 DTO 객체로 받고, 그걸 DB에 저장하기 위해 엔티티 객체로 변경합니다.
-    Content contentPatchDtoToContent(ContentPatchDto contentPatchDto);
-    ContentResponseDto contentToContentResponseDto(Content content);
     default Content contentPostDtoToContent(ContentPostDto contentPostDto){
         //1. ContentPostDto로부터 Content 채우기
         Content content = new Content();
         content.setFeeling(contentPostDto.getFeeling());
-        content.setWriter(content.getWriter());
+      //  content.setWriter(content.getWriter());
         content.setTodaySentence(contentPostDto.getTodaySentence());
         //날짜는 비즈니스 로직에서 넣습니당
         //2. ContentPostDto로부터 List<Answer> 채우기
@@ -45,7 +44,7 @@ public interface ContentMapper {
                 .map(answer -> {
                     Answer a=new Answer();
                     Question q=new Question();
-                    q.setQuestion_id(answer.getQuestionId());
+                    q.setQuestionId(answer.getQuestionId());
                     a.setQuestion(q);
                     a.setAnswer(answer.getAnswer());
                     return a;
@@ -53,4 +52,24 @@ public interface ContentMapper {
         content.setQnas(result);
         return content;
     }
+
+    default ContentResponseDto contentToContentResponseDto(Content content){
+        ContentResponseDto contentResponseDto = new ContentResponseDto();
+        contentResponseDto.setContentDate(content.getContentDate());
+        contentResponseDto.setFeeling(content.getFeeling());
+        contentResponseDto.setTodaySentence(content.getTodaySentence());
+        List<AnswerResponseDto> result = content.getQnas().stream()
+                .map(answer -> {
+                    AnswerResponseDto a=new AnswerResponseDto();
+                    a.setQuestionId(answer.getQuestion().getQuestionId());
+                    a.setAnswer(answer.getAnswer());
+                    a.setQuestionContent(answer.getQuestion().getQuestionContent());
+                    return a;
+                }).collect(Collectors.toList());
+        contentResponseDto.setQnas(result);
+        return contentResponseDto;
+    }
+
+    Content contentPatchDtoToContent(ContentPatchDto contentPatchDto);
+
 }

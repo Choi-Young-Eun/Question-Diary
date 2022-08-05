@@ -1,6 +1,5 @@
 package com.cyeproject.questiondiary.content.dto;
 
-import com.cyeproject.questiondiary.content.entity.Answer;
 import lombok.Getter;
 
 import java.util.List;
@@ -17,7 +16,7 @@ public class ContentPostDto {
     4. 오늘의 문장 - String : 필수
     */
     private String writer;
-    private List<AnswerPostDto> answers;
+    private List<AnswerRequestDto> answers;
     private Long feeling;
     private String todaySentence;
 }

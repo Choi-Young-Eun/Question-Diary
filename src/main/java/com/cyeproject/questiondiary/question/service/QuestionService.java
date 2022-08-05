@@ -25,23 +25,25 @@ public class QuestionService {
     public List<Question> findAllQuestion(){
         return questionRepository.findAll(); //pagenation 적용 X
     }
-    //R2
-    public Question findQuestion(Long question_id){
+    //R2 - 필요하나?
+    public Question findQuestion(Long questionId){
         //질문 있는지 확인
-        verifyExistsQuestionId(question_id);
-        return questionRepository.findById(question_id).get(); //Optional<Quesion>이 넘어와서 get()을 해줍니다.
+        verifyExistsQuestionId(questionId);
+        return questionRepository.findById(questionId).get(); //Optional<Quesion>이 넘어와서 get()을 해줍니다.
     }
     //U
-    public Question updateQuestion(Question question){
+    public Question updateQuestion(Long questionId, String questionContent){
         //질문있는지 확인
-        verifyExistsQuestionId(question.getQuestion_id());
+        verifyExistsQuestionId(questionId); //검색 및 반환으로 바꾸기
+        Question question =questionRepository.findById(questionId).get();
+        question.setQuestionContent(questionContent);
         return questionRepository.save(question);
     }
     //D
-    public void deleteQuestion(Long question_id){
+    public void deleteQuestion(Long questionId){
         //질문있는지 확인 - 좀 이상함 수정 필요!
-        verifyExistsQuestionId(question_id);
-        questionRepository.deleteById(question_id);
+        verifyExistsQuestionId(questionId);
+        questionRepository.deleteById(questionId);
     }
 
     //id에 해당하는 질문이 있는지 확인
