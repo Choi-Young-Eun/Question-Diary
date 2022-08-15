@@ -46,6 +46,7 @@ public interface ContentMapper {
                     Question q=new Question();
                     q.setQuestionId(answer.getQuestionId());
                     a.setQuestion(q);
+                    a.setQuestionId(q.getQuestionId());
                     a.setAnswer(answer.getAnswer());
                     return a;
                 }).collect(Collectors.toList());
@@ -59,11 +60,11 @@ public interface ContentMapper {
         contentResponseDto.setFeeling(content.getFeeling());
         contentResponseDto.setTodaySentence(content.getTodaySentence());
         List<AnswerResponseDto> result = content.getQnas().stream()
-                .map(answer -> {
+                .map(asr -> {
                     AnswerResponseDto a=new AnswerResponseDto();
-                    a.setQuestionId(answer.getQuestion().getQuestionId());
-                    a.setAnswer(answer.getAnswer());
-                    a.setQuestionContent(answer.getQuestion().getQuestionContent());
+                    a.setQuestionId(asr.getQuestionId());
+                    a.setAnswer(asr.getAnswer());
+                    a.setQuestionContent(asr.getQuestion().getQuestionContent());
                     return a;
                 }).collect(Collectors.toList());
         contentResponseDto.setQnas(result);

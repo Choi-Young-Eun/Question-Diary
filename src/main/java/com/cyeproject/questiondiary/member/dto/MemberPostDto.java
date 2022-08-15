@@ -6,7 +6,7 @@ import lombok.Getter;
 public class MemberPostDto {
     private String memberId;
     private String memberPw;
-    private String name;
+    private String username;
     private String phone;
     private String email;
 }

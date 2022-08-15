@@ -22,6 +22,7 @@ public class AnswerService {
         //answers 하나하나 돌면서 content_id를 넣음
         //DTO로 올때 Question 부분도 id만 채워져서 옴!!! 그건 이미 answers에 각각 담겨있음
         List<Answer> result = answers.stream().map(answer -> {
+            answer.setContentDate(content.getContentDate());
             answer.setContent(content);
             return answerRepository.save(answer);
         }).collect(Collectors.toList());
@@ -36,8 +37,8 @@ public class AnswerService {
         List<Answer> result = answers.stream().map(answer -> {
             //검색하기 위한 ID 구성하기(복합키?라서)
             AnswerID id=new AnswerID();
-            id.setContent(answer.getContent().getContentDate());
-            id.setQuestion(answer.getQuestion().getQuestionId());
+            id.setContentDate(answer.getContent().getContentDate());
+            id.setQuestionId(answer.getQuestion().getQuestionId());
             //존재하는 답인지 알아보자!
             verifyExistsAnswer(id);
             //update!
@@ -47,11 +48,11 @@ public class AnswerService {
     }
 
     public List<Answer> findAnswer(String contentDate){
-        return answerRepository.findAllByContent(contentDate);
+        return answerRepository.findAllByContentDate(contentDate);
     }
 
     public void deleteAnswer(String contentDate){
-        List<Answer> answers = answerRepository.findAllByContent(contentDate);
+        List<Answer> answers = answerRepository.findAllByContentDate(contentDate);
         answers.stream().forEach(answer -> answerRepository.delete(answer));
     }
 

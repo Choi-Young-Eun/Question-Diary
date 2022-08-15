@@ -20,11 +20,18 @@ public class MemberController {
     }
 
     //C - 회원 가입
-    @PostMapping
+    @PostMapping("/join")
     public ResponseEntity joinMember(@RequestBody MemberPostDto memberPostDto){
         Member member=mapper.memberPostDtoToMember(memberPostDto);
 
         return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity loginMember(@RequestBody MemberPostDto memberPostDto){
+        Member member=mapper.memberPostDtoToMember(memberPostDto);
+
+        return new ResponseEntity<>(HttpStatus.OK);
     }
     //R - 내 정보 조회
     @GetMapping("/{member-id}")

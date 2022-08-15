@@ -28,10 +28,13 @@ public class ContentService {
         //Date date = new Date();
         String dateToString = String.format("%1$tY%1$tm%1$td", new Date());
         content.setContentDate(dateToString);
+        System.out.println("contentDate : "+content.getContentDate());
+
         Content result=contentRepository.save(content);
+        List<Answer> answers=answerService.createAnswers(content.getQnas(),content);
         //2. 댓글 부분 채우기
         //-> 글 저장하고 생성된 content_id 받아서 주고 List<Answer> 채우기
-        List<Answer> answers=answerService.createAnswers(result.getQnas(),result);
+        //List<Answer> answers=answerService.createAnswers(result.getQnas(),result);
         //Answer들 하나하나 content_id에 result.getContent_id()로 채워넣고
         //List<Answer> result_answer=answerRepository.saveAll(answers); -> List<Answer> answers=answerRepository.saveAll(result.getQnas());
         //-> 근데 여기서 repository를 부르는게 맞나? service를 호출해야되나.. 알맹이를 보내줄때 질문내용도 보여줘야될텐데 이건 어떻게 되는거지

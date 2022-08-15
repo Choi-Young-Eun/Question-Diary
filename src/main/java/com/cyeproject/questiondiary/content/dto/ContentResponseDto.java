@@ -1,11 +1,13 @@
 package com.cyeproject.questiondiary.content.dto;
 
 import com.cyeproject.questiondiary.content.entity.Answer;
+import lombok.Getter;
 import lombok.Setter;
 
 import java.util.List;
 
 @Setter
+@Getter
 public class ContentResponseDto {
     /*
     1. 날짜

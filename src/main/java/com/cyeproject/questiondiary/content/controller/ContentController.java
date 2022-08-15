@@ -63,8 +63,9 @@ public class ContentController {
 
     //4. 글 삭제 - delete (근데 아직 answer지우는 건 처리 못함)
     @DeleteMapping("/{content-date}")
-    public ResponseEntity deleteContent(@PathVariable("content-date") String contentDate) {
+    public ResponseEntity deleteContent(@PathVariable("content-date") int intDate) {
         //Service Layer 호출
+        String contentDate = Integer.toString(intDate);
         contentservice.deleteContent(contentDate);
         //객체를 받지는 않을테니까 잘 지워졌다고 응답 메시지만 잘 작성해서 던져주기
         return new ResponseEntity<>(HttpStatus.OK);

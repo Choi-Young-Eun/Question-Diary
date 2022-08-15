@@ -5,9 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Getter
 @Setter
@@ -20,6 +18,7 @@ public class Question {
     2. 질문 내용 : question_content
     */
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="question_id")
     private Long questionId;
     @Column(name="question_content")

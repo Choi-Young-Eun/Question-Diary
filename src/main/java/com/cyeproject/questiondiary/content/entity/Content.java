@@ -1,10 +1,7 @@
 package com.cyeproject.questiondiary.content.entity;
 
 import com.cyeproject.questiondiary.question.entity.Question;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
@@ -32,12 +29,14 @@ public class Content {
 //    @Column(name = "content_id")
 //    private Long contentId;
     @Id
+    @Column(name="content_date")
     private String contentDate;
    // @ManyToOne //이거 제대로 설정하기
    // @JoinColumn(name = "member_id")
    // private String writer; //외래키
     //컬럼으로 생성 안함) - 연결하기 매핑!
-    @OneToMany(mappedBy = "content")
+    //@OneToMany(mappedBy = "content")
+    @Transient
     private List<Answer> qnas;
     private Long feeling;
     @Column(name = "today_sentence")
